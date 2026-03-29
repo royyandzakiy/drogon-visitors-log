@@ -21,3 +21,15 @@ void HelloController::saySecretHello(const HttpRequestPtr &req, std::function<vo
 	auto resp = HttpResponse::newHttpJsonResponse(data);
 	callback(resp);
 }
+
+void HelloController::sayHelloPage(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback,
+								   std::string name) {
+	HttpViewData data;
+	data.insert("message", "Hello, " + name + "!");
+	data.insert("time", trantor::Date::now().toFormattedString(false));
+	data.insert("threadCount", std::to_string(app().getThreadNum()));
+
+	// auto resp = HttpResponse::newHttpViewResponse("HelloView.csp", data);
+	auto resp = HttpResponse::newHttpViewResponse("HelloView", data);
+	callback(resp);
+}

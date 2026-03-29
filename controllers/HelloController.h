@@ -7,11 +7,14 @@ class HelloController : public HttpController<HelloController> // ? notice, uses
 {
   public:
 	METHOD_LIST_BEGIN
-	ADD_METHOD_TO(HelloController::sayHello, "hello/{name}", Get);
-	ADD_METHOD_TO(HelloController::saySecretHello, "hello-key/{name}", Get, "MyLoggingFilter");
+	ADD_METHOD_TO(HelloController::sayHello, "/hello/{name}", Get);
+	ADD_METHOD_TO(HelloController::saySecretHello, "/hello-key/{name}", Get, "MyLoggingFilter");
+	ADD_METHOD_TO(HelloController::sayHelloPage, "/hello-page/{name}", Get);
 	METHOD_LIST_END
 
 	void sayHello(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, std::string name);
 	void saySecretHello(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback,
 						std::string name);
+	void sayHelloPage(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback,
+					  std::string name);
 };

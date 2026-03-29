@@ -1,0 +1,24 @@
+<%inc 
+	#include <drogon/HttpViewData.h>
+%>
+
+<html>
+<head>
+	<title>Drogon Dynamic View</title>
+</head>
+
+<body>
+	<h1>Dynamic Hello!</h1>
+	<p>Message from Backend: [[ message ]]</p>
+	<p>Server Time: [[ time ]]</p>
+	
+	<hr>
+	<h3>System Status:</h3>
+	<ul>
+		<li>Threads: [[ threadCount ]]</li>
+	</ul>
+
+	<br />
+    <button onclick="window.location.href='/'">← Back to Home</button>
+</body>
+</html>
