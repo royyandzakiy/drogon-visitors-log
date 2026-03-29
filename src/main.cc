@@ -5,16 +5,17 @@
 using namespace drogon;
 
 auto main(int argc, char **argv) -> int {
-	// app().registerHandler("/hello/{name}", [](const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)>
-	// &&callback, const std::string &name)
-	// 					  {
-	//     Json::Value data;
-	//     data["result"] = "success";
-	//     data["message"] = std::format("Hello, {}!", name);
-	//     data["time"] = trantor::Date::now().toFormattedString(false);
+	app().registerHandler("/test",
+						  [](const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback) {
+							  Json::Value data;
+							  data["result"] = "success";
+							  data["message"] = "Test, who ever you are!";
+							  data["time"] = trantor::Date::now().toFormattedString(false);
 
-	//     auto resp = HttpResponse::newHttpJsonResponse(data);
-	//     callback(resp); }, {Get});
+							  auto resp = HttpResponse::newHttpJsonResponse(data);
+							  callback(resp);
+						  },
+						  {Get});
 
 	try {
 		// dynamically set config.json & index.html
