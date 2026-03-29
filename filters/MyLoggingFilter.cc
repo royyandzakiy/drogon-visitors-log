@@ -1,7 +1,7 @@
 #include "MyLoggingFilter.h"
 
 void MyLoggingFilter::doFilter(const HttpRequestPtr &req, FilterCallback &&fcb, FilterChainCallback &&fccb) {
-	std::println("Filter: Intercepted request to {}", req->path());
+	std::println("MyLoggingFilter: Intercepted request to {}", req->path());
 
 	if (req->getHeader("X-API-KEY").empty()) {
 		Json::Value error;

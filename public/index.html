@@ -7,7 +7,28 @@
 
 <body>
 	<h1>Drogon Simple App</h1>
-	<t>Royyan is here!</t>
+	<t>Welcome!</t>
+
+	<br />
+	<button onclick="sendHello()">Say Hello to Backend!</button>
+	<br />
+	<button onclick="sendHelloKey()">Say Hello to Backend</button>
+	<div id="response"></div>
+
+	<script>
+		async function sendHello() {
+			const res = await fetch('/hello/Royyan');
+			const data = await res.json();
+			document.getElementById('response').innerText = data.message;
+		}
+		async function sendHelloKey() {
+			const res = await fetch('/hello-key/Royyan', {
+				headers: { 'X-API-KEY': 'secret' } // here we add the API KEY such that the filter will not complain!
+			});
+			const data = await res.json();
+			document.getElementById('response').innerText = data.message;
+		}
+	</script>
 </body>
 
 </html>
