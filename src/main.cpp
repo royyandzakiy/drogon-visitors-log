@@ -1,25 +1,25 @@
 #include <drogon/drogon.h>
-#include <print>
 #include <filesystem>
+#include <print>
 
 using namespace drogon;
 
-auto main(int argc, char **argv) -> int
-{
-	app().registerHandler("/hello/{name}", [](const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, const std::string &name)
-						  {
-        Json::Value data;
-        data["result"] = "success";
-        data["message"] = std::format("Hello, {}!", name);
-        data["time"] = trantor::Date::now().toFormattedString(false);
+auto main(int argc, char **argv) -> int {
+	// app().registerHandler("/hello/{name}", [](const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)>
+	// &&callback, const std::string &name)
+	// 					  {
+	//     Json::Value data;
+	//     data["result"] = "success";
+	//     data["message"] = std::format("Hello, {}!", name);
+	//     data["time"] = trantor::Date::now().toFormattedString(false);
 
-        auto resp = HttpResponse::newHttpJsonResponse(data);
-        callback(resp); }, {Get});
+	//     auto resp = HttpResponse::newHttpJsonResponse(data);
+	//     callback(resp); }, {Get});
 
-	try
-	{
+	try {
 		// dynamically set config.json & index.html
-		std::filesystem::path exePath = std::filesystem::path(app().getCustomConfig()["binary_path"].asString()).parent_path();
+		std::filesystem::path exePath =
+			std::filesystem::path(app().getCustomConfig()["binary_path"].asString()).parent_path();
 		std::filesystem::path configPath = std::filesystem::current_path() / "config.json";
 
 		auto rootPath = std::filesystem::canonical(std::filesystem::path(argv[0]).parent_path() / "../..");
@@ -30,9 +30,7 @@ auto main(int argc, char **argv) -> int
 
 		std::println("Config loaded from: {}", absoluteConfig.string());
 		std::println("Document root set to: {}", app().getDocumentRoot());
-	}
-	catch (const std::exception &e)
-	{
+	} catch (const std::exception &e) {
 		std::println("Failed to load config: {}", e.what());
 		return 1;
 	}

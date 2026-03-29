@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.5..4.2)
 project(drogon-app-simple CXX)
 
 include(CheckIncludeFileCXX)
@@ -20,7 +20,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp ${CTL_SRC})
 
 # ##############################################################################
 # If you include the drogon source code locally in your project, use this method
@@ -59,7 +59,8 @@ drogon_create_views(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/views
 
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
-                                   ${CMAKE_CURRENT_SOURCE_DIR}/models)
+                                   ${CMAKE_CURRENT_SOURCE_DIR}/models
+								   ${CMAKE_CURRENT_SOURCE_DIR}/controllers)
 target_sources(${PROJECT_NAME}
                PRIVATE
                ${SRC_DIR}
