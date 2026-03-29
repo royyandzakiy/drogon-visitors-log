@@ -1,4 +1,4 @@
-# Drogon Modules App
+# Drogon Visitors Log App
 
 Creating Drogon application based on Modules and modern C++23
 

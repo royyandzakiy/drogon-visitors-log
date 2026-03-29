@@ -13,7 +13,7 @@
 			"binaryDir": "${sourceDir}/build/${presetName}"
 		},
 		{
-			"name": "windows-vcpkg-base",
+			"name": "msvc-base",
 			"description": "Common Windows settings for MSVC and vcpkg",
 			"hidden": true,
 			"inherits": "base",
@@ -25,28 +25,46 @@
 			"cacheVariables": {
 				"CMAKE_TOOLCHAIN_FILE": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
 				"CMAKE_CXX_EXTENSIONS": "OFF",
-				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin"
-			},
-			"vendor": {
-				"microsoft.com/VisualStudioSettings/CMake/1.0": {
-					"hostOS": [
-						"Windows"
-					]
-				}
+				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/msvc"
 			}
 		},
 		{
-			"name": "windows-debug",
-			"description": "Targeting Windows x64 Debug",
-			"inherits": "windows-vcpkg-base",
+			"name": "clang-win-base",
+			"description": "Windows Clang (LLVM) with Ninja",
+			"hidden": true,
+			"inherits": "base",
+			"generator": "Ninja",
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "clang-cl",
+				"CMAKE_CXX_COMPILER": "clang-cl",
+				"CMAKE_TOOLCHAIN_FILE": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/clang"
+			}
+		},
+		{
+			"name": "msvc-debug",
+			"inherits": "msvc-base",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "Debug"
 			}
 		},
 		{
-			"name": "windows-release",
-			"description": "Targeting Windows x64 Release",
-			"inherits": "windows-vcpkg-base",
+			"name": "msvc-release",
+			"inherits": "msvc-base",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release"
+			}
+		},
+		{
+			"name": "clang-debug",
+			"inherits": "clang-win-base",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		},
+		{
+			"name": "clang-release",
+			"inherits": "clang-win-base",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "Release"
 			}
@@ -59,21 +77,26 @@
 			"inheritConfigureEnvironment": true
 		},
 		{
-			"name": "debug",
+			"name": "msvc-debug",
 			"inherits": "base-build",
-			"configurePreset": "windows-debug",
+			"configurePreset": "msvc-debug",
 			"configuration": "Debug"
 		},
 		{
-			"name": "release",
+			"name": "msvc-release",
 			"inherits": "base-build",
-			"configurePreset": "windows-release",
+			"configurePreset": "msvc-release",
 			"configuration": "Release"
 		},
 		{
-			"name": "release-clean",
-			"inherits": "release",
-			"cleanFirst": true
+			"name": "clang-debug",
+			"inherits": "base-build",
+			"configurePreset": "clang-debug"
+		},
+		{
+			"name": "clang-release",
+			"inherits": "base-build",
+			"configurePreset": "clang-release"
 		}
 	],
 	"testPresets": [
@@ -85,14 +108,14 @@
 			}
 		},
 		{
-			"name": "test-debug",
+			"name": "test-msvc-debug",
 			"inherits": "base-test",
-			"configurePreset": "windows-debug"
+			"configurePreset": "msvc-debug"
 		},
 		{
-			"name": "test-release",
+			"name": "test-clang-debug",
 			"inherits": "base-test",
-			"configurePreset": "windows-release"
+			"configurePreset": "clang-debug"
 		}
 	]
 }

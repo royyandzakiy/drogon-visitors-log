@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5..4.2)
-project(drogon-app-simple CXX)
+project(drogon-visitors-log CXX)
 
 include(CheckIncludeFileCXX)
 

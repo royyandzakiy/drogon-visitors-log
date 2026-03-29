@@ -24,7 +24,7 @@ auto main(int argc, char **argv) -> int {
 			std::filesystem::path(app().getCustomConfig()["binary_path"].asString()).parent_path();
 		std::filesystem::path configPath = std::filesystem::current_path() / "config.json";
 
-		auto rootPath = std::filesystem::canonical(std::filesystem::path(argv[0]).parent_path() / "../..");
+		auto rootPath = std::filesystem::canonical(std::filesystem::path(argv[0]).parent_path() / "../../..");
 		auto absoluteConfig = rootPath / "config.json";
 
 		app().loadConfigFile(absoluteConfig.string());

@@ -1,0 +1,5 @@
+- enable clang/gcc
+	- try compile in linux
+- integrate with sqlite
+- show running data with websocket
+- file uploads
