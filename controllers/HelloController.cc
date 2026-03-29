@@ -1,4 +1,5 @@
 #include "HelloController.h"
+#include <print>
 
 void HelloController::sayHello(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback,
 							   std::string name) {
@@ -38,7 +39,7 @@ void HelloController::renderHelloPage(const HttpRequestPtr &req,
 	auto resp = HttpResponse::newHttpViewResponse("HelloView.csp", data);
 	callback(resp);
 }
-#include <print>
+
 void HelloController::renderHelloVisitors(const HttpRequestPtr &req,
 										  std::function<void(const HttpResponsePtr &)> &&callback) {
 	HttpViewData data;

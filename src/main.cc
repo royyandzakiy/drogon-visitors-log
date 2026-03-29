@@ -20,12 +20,23 @@ auto main(int argc, char **argv) -> int {
 
 	try {
 		// dynamically set config.json & index.html
-		std::filesystem::path exePath =
-			std::filesystem::path(app().getCustomConfig()["binary_path"].asString()).parent_path();
-		std::filesystem::path configPath = std::filesystem::current_path() / "config.json";
+		std::filesystem::path rootPath = std::filesystem::absolute(argv[0]).parent_path();
+		std::filesystem::path absoluteConfig;
+		bool found = false;
 
-		auto rootPath = std::filesystem::canonical(std::filesystem::path(argv[0]).parent_path() / "../../..");
-		auto absoluteConfig = rootPath / "config.json";
+		// Walk up until we find config.json (Max 4 levels)
+		for (int i = 0; i < 4; ++i) {
+			if (std::filesystem::exists(rootPath / "config.json")) {
+				absoluteConfig = rootPath / "config.json";
+				found = true;
+				break;
+			}
+			rootPath = rootPath.parent_path();
+		}
+
+		if (!found) {
+			throw std::runtime_error("Could not find config.json in any parent directory.");
+		}
 
 		app().loadConfigFile(absoluteConfig.string());
 		app().setDocumentRoot((rootPath / "public").string());
