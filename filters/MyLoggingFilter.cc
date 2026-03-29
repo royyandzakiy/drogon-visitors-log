@@ -1,6 +1,12 @@
 #include "MyLoggingFilter.h"
+#include <print>
 
-void MyLoggingFilter::doFilter(const HttpRequestPtr &req, FilterCallback &&fcb, FilterChainCallback &&fccb) {
+MyLoggingFilter::MyLoggingFilter() {
+	std::println("MyLoggingFilter constructed");
+}
+
+void MyLoggingFilter::doFilter(const drogon::HttpRequestPtr &req, drogon::FilterCallback &&fcb,
+							   drogon::FilterChainCallback &&fccb) {
 	std::println("MyLoggingFilter: Intercepted request to {}", req->path());
 
 	if (req->getHeader("X-API-KEY").empty()) {
@@ -8,8 +14,8 @@ void MyLoggingFilter::doFilter(const HttpRequestPtr &req, FilterCallback &&fcb, 
 		error["error"] = "Unauthorized";
 		error["message"] = "X-API-KEY header is missing";
 
-		auto resp = HttpResponse::newHttpJsonResponse(error);
-		resp->setStatusCode(k401Unauthorized);
+		auto resp = drogon::HttpResponse::newHttpJsonResponse(error);
+		resp->setStatusCode(drogon::k401Unauthorized);
 
 		return fcb(resp);
 	}

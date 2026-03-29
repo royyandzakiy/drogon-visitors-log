@@ -1,10 +1,11 @@
 #pragma once
 #include <drogon/HttpFilter.h>
-#include <print>
 
-using namespace drogon;
-
-class MyLoggingFilter : public HttpFilter<MyLoggingFilter> {
+class MyLoggingFilter : public drogon::HttpFilter<MyLoggingFilter> {
   public:
-	void doFilter(const HttpRequestPtr &req, FilterCallback &&fcb, FilterChainCallback &&fccb) override;
+	MyLoggingFilter(); // ! defining ctor is required in clang, to not get optimized and discarded as unused object.
+					   // ! else will cause MyLoggingFilter not found - MiddlewaresFunction.cc:164
+
+	void doFilter(const drogon::HttpRequestPtr &req, drogon::FilterCallback &&fcb,
+				  drogon::FilterChainCallback &&fccb) override;
 };
