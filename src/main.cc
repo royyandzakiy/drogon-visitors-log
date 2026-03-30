@@ -1,6 +1,6 @@
 #include <drogon/drogon.h>
 #include <filesystem>
-#include <print>
+#include <fmt/core.h>
 
 using namespace drogon;
 
@@ -41,14 +41,14 @@ auto main(int argc, char **argv) -> int {
 		app().loadConfigFile(absoluteConfig.string());
 		app().setDocumentRoot((rootPath / "public").string());
 
-		std::println("Config loaded from: {}", absoluteConfig.string());
-		std::println("Document root set to: {}", app().getDocumentRoot());
+		fmt::println("Config loaded from: {}", absoluteConfig.string());
+		fmt::println("Document root set to: {}", app().getDocumentRoot());
 	} catch (const std::exception &e) {
-		std::println("Failed to load config: {}", e.what());
+		fmt::println("Failed to load config: {}", e.what());
 		return 1;
 	}
 
-	std::println("Server is starting... visit http://localhost:5555"); // port 5555 is set via config.json
+	fmt::println("Server is starting... visit http://localhost:5555"); // port 5555 is set via config.json
 	app().run();
 
 	return 0;

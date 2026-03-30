@@ -31,7 +31,17 @@ add_executable(${PROJECT_NAME} src/main.cc
 #
 # and comment out the following lines
 find_package(Drogon CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
+
+include(FetchContent)
+FetchContent_Declare(
+  fmt
+  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+  GIT_TAG 12.1.0
+)
+FetchContent_MakeAvailable(fmt)
+
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon fmt::fmt)
 
 # ##############################################################################
 

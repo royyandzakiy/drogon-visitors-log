@@ -1,13 +1,13 @@
 #include "MyLoggingFilter.h"
-#include <print>
+#include <fmt/core.h>
 
 MyLoggingFilter::MyLoggingFilter() {
-	std::println("MyLoggingFilter constructed");
+	fmt::println("MyLoggingFilter constructed");
 }
 
 void MyLoggingFilter::doFilter(const drogon::HttpRequestPtr &req, drogon::FilterCallback &&fcb,
 							   drogon::FilterChainCallback &&fccb) {
-	std::println("MyLoggingFilter: Intercepted request to {}", req->path());
+	fmt::println("MyLoggingFilter: Intercepted request to {}", req->path());
 
 	if (req->getHeader("X-API-KEY").empty()) {
 		Json::Value error;

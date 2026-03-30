@@ -1,5 +1,5 @@
 #include "HelloController.h"
-#include <print>
+#include <fmt/core.h>
 
 void HelloController::sayHello(const drogon::HttpRequestPtr &req,
 							   std::function<void(const drogon::HttpResponsePtr &)> &&callback, std::string name) {
@@ -46,7 +46,7 @@ void HelloController::renderHelloVisitors(const drogon::HttpRequestPtr &req,
 										  std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
 	drogon::HttpViewData data;
 
-	std::println("renderHelloVisitors called!");
+	fmt::println("renderHelloVisitors called!");
 
 	std::scoped_lock lock(m_visitorMutex);
 	data.insert("visitors", m_visitors);
