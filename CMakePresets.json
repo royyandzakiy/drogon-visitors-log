@@ -10,14 +10,14 @@
 			"name": "linux-env",
 			"hidden": true,
 			"environment": {
-				"VCPKG_ROOT": "/home/royya/project-coding/vcpkg"
+				"VCPKG_ROOT_ENV": "/home/royya/project-coding/vcpkg"
 			}
 		},
 		{
 			"name": "windows-env",
 			"hidden": true,
 			"environment": {
-				"VCPKG_ROOT": "C:/vcpkg"
+				"VCPKG_ROOT_ENV": "C:/vcpkg"
 			}
 		},
 		{
@@ -40,7 +40,7 @@
 				"strategy": "external"
 			},
 			"cacheVariables": {
-				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT_ENV}/scripts/buildsystems/vcpkg.cmake",
 				"CMAKE_CXX_EXTENSIONS": "OFF",
 				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/msvc"
 			}
@@ -57,7 +57,7 @@
 			"cacheVariables": {
 				"CMAKE_C_COMPILER": "clang-cl",
 				"CMAKE_CXX_COMPILER": "clang-cl",
-				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT_ENV}/scripts/buildsystems/vcpkg.cmake",
 				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/clang-win"
 			}
 		},
@@ -73,8 +73,8 @@
 			"cacheVariables": {
 				"CMAKE_C_COMPILER": "clang",
 				"CMAKE_CXX_COMPILER": "clang++",
-				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-				"DROGON_CTL_COMMAND": "${env:VCPKG_ROOT}/installed/x64-linux/tools/drogon/drogon_ctl",
+				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT_ENV}/scripts/buildsystems/vcpkg.cmake",
+				"DROGON_CTL_COMMAND": "${env:VCPKG_ROOT_ENV}/installed/x64-linux/tools/drogon/drogon_ctl",
 				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/clang-linux"
 			}
 		},
