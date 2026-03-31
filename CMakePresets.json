@@ -24,26 +24,7 @@
 			"name": "base",
 			"description": "Abstract base for directory structure",
 			"hidden": true,
-			"binaryDir": "${sourceDir}/build/${presetName}",
-			"cacheVariables": {
-				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT_ENV}/scripts/buildsystems/vcpkg.cmake"
-			}
-		},
-		{
-			"name": "base-linux",
-			"description": "Added base for linux environment",
-			"hidden": true,
-			"cacheVariables": {
-				"DROGON_CTL_COMMAND": "${env:VCPKG_ROOT_ENV}/installed/x64-linux/tools/drogon/drogon_ctl"
-			}
-		},
-		{
-			"name": "base-windows",
-			"description": "Added base for windows environment",
-			"hidden": true,
-			"cacheVariables": {
-				"DROGON_CTL_COMMAND": "${env:VCPKG_ROOT_ENV}/installed/x64-windows/tools/drogon/drogon_ctl"
-			}
+			"binaryDir": "${sourceDir}/build/${presetName}"
 		},
 		{
 			"name": "msvc-base",
@@ -51,7 +32,6 @@
 			"hidden": true,
 			"inherits": [
 				"base",
-				"base-windows",
 				"windows-env"
 			],
 			"generator": "Visual Studio 17 2022",
@@ -69,7 +49,6 @@
 			"hidden": true,
 			"inherits": [
 				"base",
-				"base-windows",
 				"windows-env"
 			],
 			"generator": "Ninja",
@@ -85,7 +64,6 @@
 			"hidden": true,
 			"inherits": [
 				"base",
-				"base-linux",
 				"linux-env"
 			],
 			"generator": "Ninja",
@@ -101,7 +79,6 @@
 			"hidden": true,
 			"inherits": [
 				"base",
-				"base-linux",
 				"linux-env"
 			],
 			"generator": "Ninja",

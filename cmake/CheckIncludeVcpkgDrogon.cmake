@@ -2,8 +2,40 @@
 # VCPKG Path Validation
 # ##############################################################################
 
+# 1. Bridge Environment Variable
 if(NOT DEFINED VCPKG_ROOT_ENV AND DEFINED ENV{VCPKG_ROOT_ENV})
     set(VCPKG_ROOT_ENV "$ENV{VCPKG_ROOT_ENV}")
+endif()
+
+# 2. Auto-populate CMAKE_TOOLCHAIN_FILE if not already set
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE AND DEFINED VCPKG_ROOT_ENV)
+    set(_TOOLCHAIN_PATH "${VCPKG_ROOT_ENV}/scripts/buildsystems/vcpkg.cmake")
+    if(EXISTS "${_TOOLCHAIN_PATH}")
+        set(CMAKE_TOOLCHAIN_FILE "${_TOOLCHAIN_PATH}" CACHE FILEPATH "vcpkg toolchain")
+    endif()
+endif()
+
+# 3. Auto-detect DROGON_CTL_COMMAND
+if(NOT DEFINED DROGON_CTL_COMMAND AND DEFINED VCPKG_ROOT_ENV)
+    # 1. Determine the triplet (defaulting to common ones if not set yet)
+    if(NOT DEFINED VCPKG_TARGET_TRIPLET)
+        if(WIN32)
+            set(_DETECTED_TRIPLET "x64-windows")
+        else()
+            set(_DETECTED_TRIPLET "x64-linux")
+        endif()
+    else()
+        set(_DETECTED_TRIPLET "${VCPKG_TARGET_TRIPLET}")
+    endif()
+
+    # 2. Construct the path
+    set(_AUTO_PATH "${VCPKG_ROOT_ENV}/installed/${_DETECTED_TRIPLET}/tools/drogon/drogon_ctl")
+    
+    if(EXISTS "${_AUTO_PATH}")
+        set(DROGON_CTL_COMMAND "${_AUTO_PATH}" CACHE FILEPATH "Path to drogon_ctl")
+    elseif(EXISTS "${_AUTO_PATH}.exe")
+        set(DROGON_CTL_COMMAND "${_AUTO_PATH}.exe" CACHE FILEPATH "Path to drogon_ctl")
+    endif()
 endif()
 
 # Status icons/strings
