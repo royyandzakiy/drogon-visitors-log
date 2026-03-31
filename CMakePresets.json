@@ -82,11 +82,16 @@
 			"name": "gcc-linux-base",
 			"description": "Linux GCC with Ninja",
 			"hidden": true,
-			"inherits": "base",
+			"inherits": [
+				"base",
+				"linux-env"
+			],
 			"generator": "Ninja",
 			"cacheVariables": {
 				"CMAKE_C_COMPILER": "gcc",
 				"CMAKE_CXX_COMPILER": "g++",
+				"CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT_ENV}/scripts/buildsystems/vcpkg.cmake",
+				"DROGON_CTL_COMMAND": "${env:VCPKG_ROOT_ENV}/installed/x64-linux/tools/drogon/drogon_ctl",
 				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/gcc-linux"
 			}
 		},
