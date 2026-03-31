@@ -7,20 +7,6 @@
 	},
 	"configurePresets": [
 		{
-			"name": "linux-env",
-			"hidden": true,
-			"environment": {
-				"VCPKG_ROOT_ENV": "/home/royya/project-coding/vcpkg"
-			}
-		},
-		{
-			"name": "windows-env",
-			"hidden": true,
-			"environment": {
-				"VCPKG_ROOT_ENV": "C:/vcpkg"
-			}
-		},
-		{
 			"name": "base",
 			"description": "Abstract base for directory structure",
 			"hidden": true,
@@ -30,10 +16,7 @@
 			"name": "msvc-base",
 			"description": "Common Windows settings for MSVC and vcpkg",
 			"hidden": true,
-			"inherits": [
-				"base",
-				"windows-env"
-			],
+			"inherits": "base",
 			"generator": "Visual Studio 17 2022",
 			"architecture": {
 				"value": "x64",
@@ -47,10 +30,7 @@
 			"name": "clang-win-base",
 			"description": "Windows Clang (LLVM) with Ninja",
 			"hidden": true,
-			"inherits": [
-				"base",
-				"windows-env"
-			],
+			"inherits": "base",
 			"generator": "Ninja",
 			"cacheVariables": {
 				"CMAKE_C_COMPILER": "clang-cl",
@@ -62,10 +42,7 @@
 			"name": "clang-linux-base",
 			"description": "Linux Clang with Ninja",
 			"hidden": true,
-			"inherits": [
-				"base",
-				"linux-env"
-			],
+			"inherits": "base",
 			"generator": "Ninja",
 			"cacheVariables": {
 				"CMAKE_C_COMPILER": "clang",
@@ -77,10 +54,7 @@
 			"name": "gcc-linux-base",
 			"description": "Linux GCC with Ninja",
 			"hidden": true,
-			"inherits": [
-				"base",
-				"linux-env"
-			],
+			"inherits": "base",
 			"generator": "Ninja",
 			"cacheVariables": {
 				"CMAKE_C_COMPILER": "gcc",

@@ -5,7 +5,9 @@ project(drogon-visitors-log CXX)
 # VCPKG Path Validation
 # ##############################################################################
 
-include(cmake/CheckIncludeVcpkgDrogon.cmake)
+include(cmake/local_path.cmake)
+include(cmake/config_vcpkg.cmake)
+include(cmake/config_drogon.cmake)
 
 # ##############################################################################
 # DROGON CHECKS
