@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5..4.2)
 
 # ##############################################################################
-# VCPKG Path Validation
+# PRE PROJECT CHECKS
 # ##############################################################################
 
 include(cmake/local_path.cmake)
@@ -9,7 +9,7 @@ include(cmake/config_vcpkg.cmake)
 include(cmake/config_drogon.cmake)
 
 # ##############################################################################
-# DROGON CHECKS
+# DROGON SDK CHECKS
 # ##############################################################################
 
 project(drogon-visitors-log CXX)
@@ -36,14 +36,12 @@ add_executable(${PROJECT_NAME} src/main.cc
 )
 
 # ##############################################################################
-# If you include the drogon source code locally in your project, use this method
-# to add drogon 
-# add_subdirectory(drogon) 
-# target_link_libraries(${PROJECT_NAME} PRIVATE drogon)
-#
-# and comment out the following lines
-find_package(Drogon CONFIG REQUIRED)
 
+find_package(Drogon CONFIG REQUIRED)
+# add_subdirectory(drogon) # If include drogon source code locally
+# target_link_libraries(${PROJECT_NAME} PRIVATE drogon)
+
+# find_package(fmt CONFIG REQUIRED) # If include fmt via vcpkg or other
 include(FetchContent)
 FetchContent_Declare(
   fmt
@@ -51,7 +49,6 @@ FetchContent_Declare(
   GIT_TAG 12.1.0
 )
 FetchContent_MakeAvailable(fmt)
-
 
 target_link_libraries(${PROJECT_NAME} 
 	PRIVATE 
@@ -63,11 +60,7 @@ target_link_libraries(${PROJECT_NAME}
 
 drogon_create_views(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/views
                     ${CMAKE_CURRENT_BINARY_DIR})
-# use the following line to create views with namespaces.
-# drogon_create_views(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/views
-#                     ${CMAKE_CURRENT_BINARY_DIR} TRUE)
 # use the following line to create views with namespace CHANGE_ME prefixed
-# and path namespaces.
 # drogon_create_views(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/views
 #                     ${CMAKE_CURRENT_BINARY_DIR} TRUE CHANGE_ME)
 
@@ -82,7 +75,7 @@ target_sources(${PROJECT_NAME}
                ${FILTER_SRC}
                ${PLUGIN_SRC}
                ${MODEL_SRC})
-# ##############################################################################
+
 # uncomment the following line for dynamically loading views 
 # set_property(TARGET ${PROJECT_NAME} PROPERTY ENABLE_EXPORTS ON)
 
