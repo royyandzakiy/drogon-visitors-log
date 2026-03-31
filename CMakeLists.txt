@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.5..4.2)
 project(drogon-visitors-log CXX)
 
+# ##############################################################################
+# VCPKG Path Validation
+# ##############################################################################
+
+include(cmake/CheckIncludeVcpkgDrogon.cmake)
+
+# ##############################################################################
+# DROGON CHECKS
+# ##############################################################################
+
 include(CheckIncludeFileCXX)
 
 check_include_file_cxx(any HAS_ANY)
@@ -41,7 +51,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(fmt)
 
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon fmt::fmt)
+target_link_libraries(${PROJECT_NAME} 
+	PRIVATE 
+		Drogon::Drogon 
+		fmt::fmt
+)
 
 # ##############################################################################
 
